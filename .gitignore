@@ -1,0 +1,42 @@
+# Ambiente
+.env
+.env.local
+secrets/
+
+# Java / Maven / Gradle
+target/
+*.class
+*.jar
+*.war
+*.ear
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+dist/
+.cache/
+*.tsbuildinfo
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker volumes locais
+infra/data/
+
+# Cobertura de testes
+coverage/
+htmlcov/
+jacoco/
