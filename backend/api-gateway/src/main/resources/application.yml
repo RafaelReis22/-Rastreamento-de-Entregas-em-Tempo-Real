@@ -1,0 +1,56 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: auth
+          uri: http://localhost:8081
+          predicates:
+            - Path=/auth/**
+        - id: tracking
+          uri: http://localhost:8083
+          predicates:
+            - Path=/v1/location/**
+          filters:
+            - name: JwtAuthFilter
+        - id: delivery
+          uri: http://localhost:8082
+          predicates:
+            - Path=/v1/orders/**
+          filters:
+            - name: JwtAuthFilter
+        - id: websocket
+          uri: http://localhost:8084
+          predicates:
+            - Path=/ws/**
+          filters:
+            - name: JwtAuthFilter
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:dev_password}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus,info
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+jwt:
+  public-key-path: ${JWT_PUBLIC_KEY_PATH:./secrets/jwt_public.pem}
+
+otel:
+  exporter:
+    otlp:
+      endpoint: ${OTEL_EXPORTER_OTLP_ENDPOINT:http://localhost:4318}
+  service:
+    name: api-gateway
