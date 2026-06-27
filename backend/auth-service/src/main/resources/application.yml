@@ -33,8 +33,11 @@ management:
         enabled: true
 
 jwt:
-  private-key-path: ${JWT_PRIVATE_KEY_PATH:./secrets/jwt_private.pem}
-  public-key-path: ${JWT_PUBLIC_KEY_PATH:./secrets/jwt_public.pem}
+  # Base64-encoded PKCS8 private key (sem headers PEM). Em branco = chave efêmera (somente dev).
+  private-key: ${JWT_PRIVATE_KEY:}
+  # Base64-encoded X.509 public key (sem headers PEM).
+  public-key: ${JWT_PUBLIC_KEY:}
+  key-id: ${JWT_KEY_ID:dev-key-1}
   access-token-expiration-ms: ${JWT_ACCESS_TOKEN_EXPIRATION_MS:3600000}
   refresh-token-expiration-ms: ${JWT_REFRESH_TOKEN_EXPIRATION_MS:604800000}
 
