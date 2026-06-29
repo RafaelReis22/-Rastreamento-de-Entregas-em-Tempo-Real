@@ -1,0 +1,39 @@
+package com.rastreamento.tracking.web.controller;
+
+import com.rastreamento.tracking.infrastructure.kafka.LocationEventProducer;
+import com.rastreamento.tracking.infrastructure.redis.GeoSpatialService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
+
+@RestController
+@RequestMapping("/api/v1/tracking")
+public class TrackingController {
+
+    private final LocationEventProducer locationEventProducer;
+    private final GeoSpatialService geoSpatialService;
+
+    public TrackingController(LocationEventProducer locationEventProducer, GeoSpatialService geoSpatialService) {
+        this.locationEventProducer = locationEventProducer;
+        this.geoSpatialService = geoSpatialService;
+    }
+
+    @PostMapping("/location")
+    public ResponseEntity<Map<String, Object>> receiveLocationPing(@RequestBody Map<String, Object> payload) {
+        String deliveryId = (String) payload.getOrDefault("deliveryId", "d100e840-0000-4000-a000-000000000001");
+        String delivererId = (String) payload.getOrDefault("delivererId", "u200e840-0000-4000-a000-000000000002");
+        double lat = Double.parseDouble(payload.get("latitude").toString());
+        double lng = Double.parseDouble(payload.get("longitude").toString());
+
+        geoSpatialService.updateDelivererLocation(delivererId, lat, lng);
+        locationEventProducer.publishLocationUpdate(deliveryId, payload);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("status", "SUCCESS");
+        response.put("deliveryId", deliveryId);
+        response.put("processedAt", System.currentTimeMillis());
+        return ResponseEntity.ok(response);
+    }
+}
