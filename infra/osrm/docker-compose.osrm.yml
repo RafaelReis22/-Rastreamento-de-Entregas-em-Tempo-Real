@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+  osrm-backend:
+    image: osrm/osrm-backend:v5.27.1
+    container_name: osrm-routing-engine
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    command: osrm-routed --algorithm mld /data/brazil-latest.osrm
+    volumes:
+      - osrm-data:/data
+    networks:
+      - rastreamento-net
+
+volumes:
+  osrm-data:
+
+networks:
+  rastreamento-net:
+    external: true
