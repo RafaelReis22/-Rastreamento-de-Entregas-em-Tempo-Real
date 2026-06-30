@@ -66,4 +66,18 @@ public class DeliveryController {
         deliveryEventProducer.publishStatusChanged(id, order.getDelivererId(), oldStatus, status);
         return ResponseEntity.ok(order);
     }
+
+    @GetMapping("/{id}/eta")
+    public ResponseEntity<Map<String, Object>> getDeliveryEta(@PathVariable UUID id) {
+        DeliveryOrder order = mockDatabase.get(id);
+        if (order == null) {
+            return ResponseEntity.notFound().build();
+        }
+        Map<String, Object> result = new HashMap<>();
+        result.put("deliveryId", id);
+        result.put("estimatedMinutes", 12);
+        result.put("trafficCondition", "MODERATE");
+        result.put("status", order.getStatus());
+        return ResponseEntity.ok(result);
+    }
 }
