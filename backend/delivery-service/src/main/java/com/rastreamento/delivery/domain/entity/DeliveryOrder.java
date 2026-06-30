@@ -37,6 +37,18 @@ public class DeliveryOrder {
     @Column(name = "dest_address", nullable = false, columnDefinition = "TEXT")
     private String destAddress;
 
+    @Column(name = "origin_lat")
+    private Double originLat;
+
+    @Column(name = "origin_lng")
+    private Double originLng;
+
+    @Column(name = "dest_lat")
+    private Double destLat;
+
+    @Column(name = "dest_lng")
+    private Double destLng;
+
     @Column(columnDefinition = "TEXT")
     private String notes;
 

@@ -31,7 +31,7 @@ public class DeliveryController {
                 .delivererId(UUID.fromString("u200e840-0000-4000-a000-000000000002"))
                 .status(DeliveryStatus.IN_TRANSIT)
                 .originAddress("Av. Paulista, 1578 - São Paulo, SP")
-                .destinationAddress("R. Oscar Freire, 950 - São Paulo, SP")
+                .destAddress("R. Oscar Freire, 950 - São Paulo, SP")
                 .originLat(-23.561684)
                 .originLng(-46.655981)
                 .destLat(-23.568200)
