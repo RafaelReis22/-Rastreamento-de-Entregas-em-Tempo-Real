@@ -41,4 +41,20 @@ public class TrackingController {
         response.put("processedAt", System.currentTimeMillis());
         return ResponseEntity.ok(response);
     }
+
+    @PostMapping("/batch")
+    public ResponseEntity<Map<String, Object>> receiveLocationBatch(@RequestBody java.util.List<Map<String, Object>> pings) {
+        int count = pings != null ? pings.size() : 0;
+        if (pings != null) {
+            for (Map<String, Object> ping : pings) {
+                String deliveryId = (String) ping.getOrDefault("deliveryId", "d100e840-0000-4000-a000-000000000001");
+                locationEventProducer.publishLocationUpdate(deliveryId, ping);
+            }
+        }
+        Map<String, Object> response = new HashMap<>();
+        response.put("status", "SUCCESS");
+        response.put("processedBatchSize", count);
+        response.put("timestamp", System.currentTimeMillis());
+        return ResponseEntity.ok(response);
+    }
 }
