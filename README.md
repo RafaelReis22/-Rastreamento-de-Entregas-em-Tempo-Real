@@ -129,6 +129,25 @@ node infra/scripts/gps-simulator.js
 
 ---
 
+## 🏆 Matriz de Entregas por Fase (Fases 1 a 12 - 100% Concluído)
+
+| Fase | Funcionalidade | Status | Módulos Envolvidos |
+|------|----------------|--------|---------------------|
+| **Fase 1** | README.md completo, DDLs SQL e Simulador GPS Node.js | ✅ **CONCLUÍDO** | `README.md`, `infra/scripts` |
+| **Fase 2** | JWT RS256, Auth Security & `JwtAuthFilter` Gateway | ✅ **CONCLUÍDO** | `api-gateway`, `auth-service` |
+| **Fase 3** | Ciclo de Vida de Entregas & Kafka `delivery.status.changed` | ✅ **CONCLUÍDO** | `delivery-service` |
+| **Fase 4** | Ingestão GPS, Redis Geo (`GEOADD`) & Kafka `location.updated` | ✅ **CONCLUÍDO** | `tracking-service` |
+| **Fase 5** | Servidor WebSocket STOMP & Push ao vivo | ✅ **CONCLUÍDO** | `websocket-service`, `notification-service` |
+| **Fase 6** | Frontend Web SPA Next.js 14 com Mapa Leaflet | ✅ **CONCLUÍDO** | `frontend-web` |
+| **Fase 7** | OSRM Map Matching & Snapping de Coordenadas à Malha Viária | ✅ **CONCLUÍDO** | `infra/osrm`, `tracking-service` |
+| **Fase 8** | Predição Dinâmica de ETA por IA / Modelo de Velocidade Média | ✅ **CONCLUÍDO** | `delivery-service` (`EtaCalculatorService`) |
+| **Fase 9** | Cerca Virtual (Geofencing 500m) & Alertas Automáticos | ✅ **CONCLUÍDO** | `tracking-service` (`GeofenceAlertService`) |
+| **Fase 10** | Protocolo de Ingestão Offline & Sync em Lote (`/batch`) | ✅ **CONCLUÍDO** | `infra/scripts`, `tracking-service` |
+| **Fase 11** | Gestão Multi-Frota (Multi-Tenancy) & Medição FinOps (km / R$) | ✅ **CONCLUÍDO** | `delivery-service` (`FleetMeteringService`) |
+| **Fase 12** | Helm Chart Kubernetes, HPA Auto-Scaling & Push Git Final | ✅ **CONCLUÍDO** | `infra/k8s/helm`, `git push` |
+
+---
+
 ## 📄 Licença
 
 MIT License — consulte o arquivo `LICENSE` para mais detalhes.

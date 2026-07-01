@@ -1,0 +1,26 @@
+replicaCount: 2
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 70
+  targetMemoryUtilizationPercentage: 80
+
+services:
+  gateway:
+    port: 8080
+  auth:
+    port: 8081
+  delivery:
+    port: 8082
+  tracking:
+    port: 8083
+  websocket:
+    port: 8084
+  notification:
+    port: 8085
+
+ingress:
+  enabled: true
+  host: tracking.local
