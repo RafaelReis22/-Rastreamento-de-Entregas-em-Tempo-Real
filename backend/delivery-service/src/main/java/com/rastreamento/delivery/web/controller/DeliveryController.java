@@ -80,4 +80,11 @@ public class DeliveryController {
         result.put("status", order.getStatus());
         return ResponseEntity.ok(result);
     }
+
+    @GetMapping("/fleet-metrics")
+    public ResponseEntity<Map<String, Object>> getFleetMetrics(@RequestParam(defaultValue = "tenant-logistics-01") String tenantId) {
+        com.rastreamento.delivery.service.FleetMeteringService meteringService = new com.rastreamento.delivery.service.FleetMeteringService();
+        Map<String, Object> metrics = meteringService.calculateFleetCost(tenantId, 142.8);
+        return ResponseEntity.ok(metrics);
+    }
 }
