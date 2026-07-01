@@ -14,10 +14,14 @@ public class TrackingController {
 
     private final LocationEventProducer locationEventProducer;
     private final GeoSpatialService geoSpatialService;
+    private final com.rastreamento.tracking.service.GeofenceAlertService geofenceAlertService;
 
-    public TrackingController(LocationEventProducer locationEventProducer, GeoSpatialService geoSpatialService) {
+    public TrackingController(LocationEventProducer locationEventProducer,
+                              GeoSpatialService geoSpatialService,
+                              com.rastreamento.tracking.service.GeofenceAlertService geofenceAlertService) {
         this.locationEventProducer = locationEventProducer;
         this.geoSpatialService = geoSpatialService;
+        this.geofenceAlertService = geofenceAlertService;
     }
 
     @PostMapping("/location")
@@ -29,6 +33,7 @@ public class TrackingController {
 
         geoSpatialService.updateDelivererLocation(delivererId, lat, lng);
         locationEventProducer.publishLocationUpdate(deliveryId, payload);
+        geofenceAlertService.checkProximityAndAlert(deliveryId, lat, lng, -23.578500, -46.686000);
 
         Map<String, Object> response = new HashMap<>();
         response.put("status", "SUCCESS");
